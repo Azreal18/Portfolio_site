@@ -1,7 +1,4 @@
-import './style.css'
-
-// Navigation
-const createNavigation = () => `
+(function(){const c=document.createElement("link").relList;if(c&&c.supports&&c.supports("modulepreload"))return;for(const e of document.querySelectorAll('link[rel="modulepreload"]'))v(e);new MutationObserver(e=>{for(const s of e)if(s.type==="childList")for(const o of s.addedNodes)o.tagName==="LINK"&&o.rel==="modulepreload"&&v(o)}).observe(document,{childList:!0,subtree:!0});function a(e){const s={};return e.integrity&&(s.integrity=e.integrity),e.referrerPolicy&&(s.referrerPolicy=e.referrerPolicy),e.crossOrigin==="use-credentials"?s.credentials="include":e.crossOrigin==="anonymous"?s.credentials="omit":s.credentials="same-origin",s}function v(e){if(e.ep)return;e.ep=!0;const s=a(e);fetch(e.href,s)}})();const k=()=>`
   <nav class="navbar" id="navbar">
     <div class="nav-container">
       <a href="#home" class="nav-brand">Viraj Bhanushali</a>
@@ -19,10 +16,7 @@ const createNavigation = () => `
       </ul>
     </div>
   </nav>
-`
-
-// Hero Section
-const createHero = () => `
+`,j=()=>`
   <section id="home" class="hero">
     <div class="hero-background">
       <div class="particles" id="particles"></div>
@@ -51,10 +45,7 @@ const createHero = () => `
       <span></span>
     </a>
   </section>
-`
-
-// About Section
-const createAbout = () => `
+`,L=()=>`
   <section id="about" class="about">
     <div class="section-container">
       <div class="about-grid">
@@ -82,23 +73,17 @@ const createAbout = () => `
             
             <div class="skills-card">
               <h3 class="skills-title">Skills</h3>
-              ${[
-    { name: 'SQL', value: 75 },
-    { name: 'Python', value: 80 },
-    { name: 'Data Visualization', value: 75 },
-    { name: 'Statistical Analysis', value: 70 },
-    { name: 'Machine Learning', value: 75 }
-  ].map(skill => `
+              ${[{name:"SQL",value:75},{name:"Python",value:80},{name:"Data Visualization",value:75},{name:"Statistical Analysis",value:70},{name:"Machine Learning",value:75}].map(n=>`
                 <div class="skill-item">
                   <div class="skill-header">
-                    <span class="skill-name">${skill.name}</span>
-                    <span class="skill-percentage">${skill.value}%</span>
+                    <span class="skill-name">${n.name}</span>
+                    <span class="skill-percentage">${n.value}%</span>
                   </div>
                   <div class="skill-bar">
-                    <div class="skill-progress" data-progress="${skill.value}"></div>
+                    <div class="skill-progress" data-progress="${n.value}"></div>
                   </div>
                 </div>
-              `).join('')}
+              `).join("")}
             </div>
           </div>
         </div>
@@ -146,10 +131,7 @@ const createAbout = () => `
       </div>
     </div>
   </section>
-`
-
-// Resume Section
-const createResume = () => `
+`,w=()=>`
   <section id="resume" class="resume">
     <div class="section-container">
       <h2 class="section-title centered">Resume</h2>
@@ -219,10 +201,7 @@ const createResume = () => `
       </div>
     </div>
   </section>
-`
-
-// Projects Section
-const createProjects = () => `
+`,P=()=>`
   <section id="projects" class="projects">
     <div class="section-container">
       <h2 class="section-title centered">Projects</h2>
@@ -283,10 +262,7 @@ const createProjects = () => `
       </div>
     </div>
   </section>
-`
-
-// Contact Section
-const createContact = () => `
+`,A=()=>`
   <section id="contact" class="contact">
     <div class="section-container">
       <h2 class="section-title centered">Contact Me</h2>
@@ -335,10 +311,7 @@ const createContact = () => `
       </div>
     </div>
   </section>
-`
-
-// Modal
-const createModal = () => `
+`,C=()=>`
   <div id="contact-modal" class="modal">
     <div class="modal-content">
       <button class="modal-close" id="modal-close" aria-label="Close modal">&times;</button>
@@ -347,175 +320,12 @@ const createModal = () => `
       <p class="modal-note">(Click on the email to send a message)</p>
     </div>
   </div>
-`
-
-// Initialize the app
-document.querySelector('#app').innerHTML = `
-  ${createNavigation()}
-  ${createHero()}
-  ${createAbout()}
-  ${createResume()}
-  ${createProjects()}
-  ${createContact()}
-  ${createModal()}
-`
-
-// Initialize interactive features
-initializeApp()
-
-function initializeApp() {
-  // Typing animation
-  const typingTexts = ['Data Scientist  ', 'Athlete ', '   ']
-  let textIndex = 0
-  let charIndex = 0
-  const typingElement = document.getElementById('typing-text')
-
-  function type() {
-    if (charIndex < typingTexts[textIndex].length) {
-      typingElement.textContent += typingTexts[textIndex].charAt(charIndex)
-      charIndex++
-      setTimeout(type, 200)
-    } else {
-      setTimeout(erase, 2000)
-    }
-  }
-
-  function erase() {
-    if (charIndex > 0) {
-      typingElement.textContent = typingTexts[textIndex].substring(0, charIndex - 1)
-      charIndex--
-      setTimeout(erase, 100)
-    } else {
-      textIndex = (textIndex + 1) % typingTexts.length
-      setTimeout(type, 500)
-    }
-  }
-
-  type()
-
-  // Mobile navigation toggle
-  const navToggle = document.getElementById('nav-toggle')
-  const navMenu = document.getElementById('nav-menu')
-
-  navToggle?.addEventListener('click', () => {
-    navMenu?.classList.toggle('active')
-    navToggle.classList.toggle('active')
-  })
-
-  // Close menu when clicking on links
-  document.querySelectorAll('.nav-link').forEach(link => {
-    link.addEventListener('click', () => {
-      navMenu?.classList.remove('active')
-      navToggle?.classList.remove('active')
-    })
-  })
-
-  // Navbar scroll effect
-  window.addEventListener('scroll', () => {
-    const navbar = document.getElementById('navbar')
-    if (window.scrollY > 100) {
-      navbar?.classList.add('scrolled')
-    } else {
-      navbar?.classList.remove('scrolled')
-    }
-  })
-
-  // Skill bars animation
-  const animateSkills = () => {
-    const skillBars = document.querySelectorAll('.skill-progress')
-    skillBars.forEach(bar => {
-      const progress = bar.getAttribute('data-progress')
-      bar.style.width = `${progress}%`
-    })
-  }
-
-  // Counter animation
-  const animateCounters = () => {
-    const counters = document.querySelectorAll('.counter-number')
-    counters.forEach(counter => {
-      const target = parseInt(counter.getAttribute('data-target'))
-      let current = 0
-      const increment = target / 50
-
-      const updateCounter = () => {
-        if (current < target) {
-          current += increment
-          counter.textContent = Math.ceil(current)
-          setTimeout(updateCounter, 40)
-        } else {
-          counter.textContent = target
-        }
-      }
-
-      updateCounter()
-    })
-  }
-
-  // Intersection Observer for animations
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible')
-
-        if (entry.target.classList.contains('skills-card')) {
-          animateSkills()
-        }
-        if (entry.target.classList.contains('counter')) {
-          animateCounters()
-        }
-      }
-    })
-  }, { threshold: 0.2 })
-
-  document.querySelectorAll('.about-image-wrapper, .about-content, .timeline-item, .project-card, .contact-card, .skills-card, .counter').forEach(el => {
-    observer.observe(el)
-  })
-
-  // Modal functionality
-  const modal = document.getElementById('contact-modal')
-  const modalBtn = document.getElementById('contact-modal-btn')
-  const modalClose = document.getElementById('modal-close')
-
-  modalBtn?.addEventListener('click', () => {
-    modal?.classList.add('active')
-  })
-
-  modalClose?.addEventListener('click', () => {
-    modal?.classList.remove('active')
-  })
-
-  window.addEventListener('click', (e) => {
-    if (e.target === modal) {
-      modal?.classList.remove('active')
-    }
-  })
-
-  // Smooth scroll
-  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-      e.preventDefault()
-      const target = document.querySelector(this.getAttribute('href'))
-      if (target) {
-        target.scrollIntoView({ behavior: 'smooth', block: 'start' })
-      }
-    })
-  })
-
-  // Particles effect
-  createParticles()
-}
-
-function createParticles() {
-  const container = document.getElementById('particles')
-  if (!container) return
-
-  for (let i = 0; i < 8; i++) {
-    const particle = document.createElement('div')
-    particle.className = 'particle'
-    particle.style.left = `${Math.random() * 100}%`
-    particle.style.top = `${Math.random() * 100}%`
-    particle.style.animationDelay = `${Math.random() * 3}s`
-    particle.style.animationDuration = `${3 + Math.random() * 4}s`
-    container.appendChild(particle)
-  }
-}
+`;document.querySelector("#app").innerHTML=`
+  ${k()}
+  ${j()}
+  ${L()}
+  ${w()}
+  ${P()}
+  ${A()}
+  ${C()}
+`;S();function S(){const n=["Data Scientist  ","Athlete ","   "];let c=0,a=0;const v=document.getElementById("typing-text");function e(){a<n[c].length?(v.textContent+=n[c].charAt(a),a++,setTimeout(e,200)):setTimeout(s,2e3)}function s(){a>0?(v.textContent=n[c].substring(0,a-1),a--,setTimeout(s,100)):(c=(c+1)%n.length,setTimeout(e,500))}e();const o=document.getElementById("nav-toggle"),d=document.getElementById("nav-menu");o==null||o.addEventListener("click",()=>{d==null||d.classList.toggle("active"),o.classList.toggle("active")}),document.querySelectorAll(".nav-link").forEach(t=>{t.addEventListener("click",()=>{d==null||d.classList.remove("active"),o==null||o.classList.remove("active")})}),window.addEventListener("scroll",()=>{const t=document.getElementById("navbar");window.scrollY>100?t==null||t.classList.add("scrolled"):t==null||t.classList.remove("scrolled")});const g=()=>{document.querySelectorAll(".skill-progress").forEach(i=>{const r=i.getAttribute("data-progress");i.style.width=`${r}%`})},b=()=>{document.querySelectorAll(".counter-number").forEach(i=>{const r=parseInt(i.getAttribute("data-target"));let u=0;const y=r/50,h=()=>{u<r?(u+=y,i.textContent=Math.ceil(u),setTimeout(h,40)):i.textContent=r};h()})},f=new IntersectionObserver(t=>{t.forEach(i=>{i.isIntersecting&&(i.target.classList.add("visible"),i.target.classList.contains("skills-card")&&g(),i.target.classList.contains("counter")&&b())})},{threshold:.2});document.querySelectorAll(".about-image-wrapper, .about-content, .timeline-item, .project-card, .contact-card, .skills-card, .counter").forEach(t=>{f.observe(t)});const l=document.getElementById("contact-modal"),p=document.getElementById("contact-modal-btn"),m=document.getElementById("modal-close");p==null||p.addEventListener("click",()=>{l==null||l.classList.add("active")}),m==null||m.addEventListener("click",()=>{l==null||l.classList.remove("active")}),window.addEventListener("click",t=>{t.target===l&&(l==null||l.classList.remove("active"))}),document.querySelectorAll('a[href^="#"]').forEach(t=>{t.addEventListener("click",function(i){i.preventDefault();const r=document.querySelector(this.getAttribute("href"));r&&r.scrollIntoView({behavior:"smooth",block:"start"})})}),E()}function E(){const n=document.getElementById("particles");if(n)for(let c=0;c<8;c++){const a=document.createElement("div");a.className="particle",a.style.left=`${Math.random()*100}%`,a.style.top=`${Math.random()*100}%`,a.style.animationDelay=`${Math.random()*3}s`,a.style.animationDuration=`${3+Math.random()*4}s`,n.appendChild(a)}}
