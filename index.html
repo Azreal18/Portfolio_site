@@ -405,6 +405,7 @@ footer .socials{display:flex;gap:18px}
 footer .socials a{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--muted)}
 footer .socials a:hover{color:var(--accent)}
 </style>
+<link rel="stylesheet" href="css/responsive.css">
 </head>
 <body>
 
@@ -744,79 +745,7 @@ footer .socials a:hover{color:var(--accent)}
   </div>
 </footer>
 
-<script>
-// Theme: Auto follows system preference; picking a named theme overrides it for this session
-const root = document.documentElement;
-const themeToggle = document.getElementById('themeToggle');
-const themeMenu = document.getElementById('themeMenu');
-const themeButtons = themeMenu.querySelectorAll('button');
-
-function markActive(){
-  const current = root.getAttribute('data-theme') || '';
-  themeButtons.forEach(b => b.classList.toggle('active', b.dataset.theme === current));
-}
-function closeMenu(){
-  themeMenu.classList.remove('open');
-  themeToggle.setAttribute('aria-expanded', 'false');
-}
-themeToggle.addEventListener('click', (e) => {
-  e.stopPropagation();
-  const open = themeMenu.classList.toggle('open');
-  themeToggle.setAttribute('aria-expanded', open);
-});
-themeButtons.forEach(btn => {
-  btn.addEventListener('click', () => {
-    const value = btn.dataset.theme;
-    if (value) root.setAttribute('data-theme', value);
-    else root.removeAttribute('data-theme'); // Auto
-    markActive();
-    closeMenu();
-  });
-});
-document.addEventListener('click', (e) => {
-  if (!themeMenu.contains(e.target) && e.target !== themeToggle) closeMenu();
-});
-document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeMenu(); });
-markActive();
-
-// Mobile menu toggle
-const menuBtn = document.getElementById('menuBtn');
-const navLinks = document.getElementById('navLinks');
-menuBtn.addEventListener('click', () => {
-  const open = navLinks.classList.toggle('open');
-  menuBtn.setAttribute('aria-expanded', open);
-});
-navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
-  navLinks.classList.remove('open');
-  menuBtn.setAttribute('aria-expanded', false);
-}));
-
-// Thread rail click-to-scroll
-const railButtons = document.querySelectorAll('.thread-rail button');
-railButtons.forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelector(btn.dataset.target).scrollIntoView({behavior:'smooth'});
-  });
-});
-
-// Scrollspy: highlight active nav link + rail dot
-const sections = ['home','about','services','experience','work','contact']
-  .map(id => document.getElementById(id)).filter(Boolean);
-const navA = document.querySelectorAll('.nav-links a');
-
-const setActive = (id) => {
-  railButtons.forEach(b => b.classList.toggle('active', b.dataset.target === '#' + id));
-  navA.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + id));
-};
-
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) setActive(entry.target.id);
-  });
-}, { rootMargin: '-45% 0px -45% 0px', threshold: 0 });
-
-sections.forEach(s => observer.observe(s));
-</script>
+<script type="module" src="js/main.js"></script>
 
 </body>
 </html>
